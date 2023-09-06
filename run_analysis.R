@@ -76,8 +76,6 @@ merge_df$subject_ID <- as.numeric(merge_df$subject_ID)
 # Extract data with mean and std
 merge_df_extract <- merge_df[,1:9]
 
-sts <- summarise(merge_df_extract,groups = type)
-
 
 result <- merge_df_extract%>%
     group_by(subject_ID, type)%>%
