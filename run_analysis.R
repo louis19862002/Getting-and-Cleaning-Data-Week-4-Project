@@ -1,5 +1,6 @@
+```{r}
 # Set up the working dictionary
-setwd("./UCI_HAR_Dataset")
+#setwd("./UCI HAR Dataset")
 
 library(dplyr)
 
@@ -73,21 +74,14 @@ merge_df <- relocate(merge_df, "subject_ID", "code", "type")
 merge_df$type <- as.factor(merge_df$type)
 merge_df$subject_ID <- as.numeric(merge_df$subject_ID)
 
-# Extract data with mean and std
-merge_df_extract <- merge_df[,1:9]
 
+colnames(merge_df) <- make.unique(colnames(merge_df))
 
-result <- merge_df_extract%>%
+# Calculate the mean and Stand deviation for each measurement
+result <- merge_df%>%
     group_by(subject_ID, type)%>%
-    summarise(mean_X = mean(`tBodyAcc-mean()-X`),
-              mean_Y = mean(`tBodyAcc-mean()-Y`),
-              mean_Z = mean(`tBodyAcc-mean()-Z`),
-              std_X = mean(`tBodyAcc-std()-X`),
-              std_Y = mean(`tBodyAcc-std()-Y`),
-              std_Z = mean(`tBodyAcc-std()-Z`)
-    )
+    summarize(across(2:562, list(Mean =mean, STD = sd)), .groups = "drop")
 
 
 # write the tidy date
 write.table(result, file = "tidydata.txt", row.names = FALSE)
-
