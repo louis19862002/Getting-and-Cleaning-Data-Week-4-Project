@@ -4,7 +4,17 @@ Author - Shenq-Shyang Huang
 
 Data Source: Human Activity Recognition Using Smartphones (<http://archive.ics.uci.edu/dataset/240/human+activity+recognition+using+smartphones>)
 
-Data process strategy:
+Data process strategy (briefly):
+
+1.  Import data
+2.  Match the subject ID, variable names for those train and test data
+3.  Combine train and test data
+4.  Import the corresponding activity labels by matching the "code"
+5.  Assign the numeric or factor to data
+6.  Calculate the mean and std for each measurement
+7.  Export to txt file
+
+Data process strategy (detailed):
 
 1.  import data from line 6 to line 27:
 
@@ -120,33 +130,15 @@ Data process strategy:
 
     merge_df\$subject_ID \<- as.numeric(merge_df\$subject_ID)
 
-13. I notice the mean and std are the required data, and there are numerous duplicated columns, therefore, I extracted the first 9 columns that covers what I need:
+13. Calculate the mean of data and assign it to a new dataframe "result":
 
-    \# Extract data with mean and std
-
-    merge_df_extract \<- merge_df[,1:9]
-
-14. Calculate the mean of data and assign it to a new dataframe "result":
-
-    result \<- merge_df_extract%\>%
+    result \<- merge_df%\>%
 
     group_by(subject_ID, type)%\>%
 
-    summarise(mean_X = mean(\`tBodyAcc-mean()-X\`),
+    summarize(across(2:562, list(Mean =mean, STD = sd)), .groups = "drop")
 
-    mean_Y = mean(\`tBodyAcc-mean()-Y\`),
-
-    mean_Z = mean(\`tBodyAcc-mean()-Z\`),
-
-    std_X = mean(\`tBodyAcc-std()-X\`),
-
-    std_Y = mean(\`tBodyAcc-std()-Y\`),
-
-    std_Z = mean(\`tBodyAcc-std()-Z\`)
-
-    )
-
-15. Write a table and export as indicated:
+14. Write a table and export as indicated:
 
     \# write the tidy date
 
