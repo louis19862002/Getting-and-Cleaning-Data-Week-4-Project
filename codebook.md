@@ -1146,16 +1146,4 @@ For the column in train_y_train and test_y_test is the code for activity from "a
 
 For the subject ID in subject_train and subject_test data, the ID was imported form "subject_train.txt" and "subject_test.txt", the number indicates the number of subject_ID in the merge_df dataset
 
-In the result table, the column names are corresponding to:
-
-mean_X = mean of \`tBodyAcc-mean()-X\`
-
-mean_Y = mean of \`tBodyAcc-mean()-Y\`
-
-mean_Z = mean of \`tBodyAcc-mean()-Z\`
-
-std_X = mean of \`tBodyAcc-std()-X\`
-
-std_Y = mean of \`tBodyAcc-std()-Y\`
-
-std_Z = mean of \`tBodyAcc-std()-Z\`
+In the result table, the column names with "\_Mean" indicates the mean value for each individual with one activity listed above; the column names with "\_STD" indicates the standard deviation for each individual with one activity listed above
